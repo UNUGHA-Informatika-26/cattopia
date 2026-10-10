@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'home_page.dart';
 import 'products.dart';
+import 'detail_page.dart';
 
 class ShopPage extends StatelessWidget {
   const ShopPage({super.key});
@@ -50,39 +50,47 @@ class ShopPage extends StatelessWidget {
               ),
               itemBuilder: (context, i) {
                 final p = products[i];
-                return Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Expanded(
-                          child: Center(
-                            child: Icon(Icons.pets, size: 48, color: kOrange),
-                          ),
-                        ),
-                        Text(
-                          p.nama,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 4),
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(vertical: 4),
-                          decoration: BoxDecoration(
-                            color: kOrange,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Text(
-                            'Rp ${p.harga}',
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => DetailPage(product: p)),
+                    );
+                  },
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Expanded(
+                            child: Center(
+                              child: Icon(Icons.pets, size: 48, color: kOrange),
                             ),
                           ),
-                        ),
-                      ],
+                          Text(
+                            p.nama,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 4),
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            decoration: BoxDecoration(
+                              color: kOrange,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              'Rp ${p.harga}',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
