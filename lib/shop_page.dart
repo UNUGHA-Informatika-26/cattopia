@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'products.dart';
 import 'detail_page.dart';
+import 'cart_page.dart';
 
 class ShopPage extends StatelessWidget {
   const ShopPage({super.key});
@@ -33,8 +34,15 @@ class ShopPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
-                const Icon(Icons.shopping_cart, color: Colors.white),
+                IconButton(
+                  icon: const Icon(Icons.shopping_cart, color: Colors.white),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const CartPage()),
+                    );
+                  },
+                ),
               ],
             ),
           ),

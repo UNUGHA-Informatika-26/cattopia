@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'home_page.dart';
 import 'products.dart';
+import 'cart.dart';
 
 class DetailPage extends StatefulWidget {
   final Product product;
@@ -111,11 +111,11 @@ class _DetailPageState extends State<DetailPage> {
               child: FilledButton(
                 style: FilledButton.styleFrom(backgroundColor: kOrange),
                 onPressed: () {
+                  addToCart(p, jumlah);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Masuk keranjang (belum aktif)'),
-                    ),
+                    const SnackBar(content: Text('Produk masuk keranjang')),
                   );
+                  Navigator.pop(context);
                 },
                 child: const Text('Masukkan Keranjang'),
               ),

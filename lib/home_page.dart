@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'cart_page.dart';
 
 const kOrange = Color(0xFFF2A93B);
 
@@ -17,7 +18,6 @@ class HomePage extends StatelessWidget {
     return SafeArea(
       child: ListView(
         children: [
-          // Header oranye + pencarian
           Container(
             color: kOrange,
             padding: const EdgeInsets.all(12),
@@ -40,8 +40,15 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
-                const Icon(Icons.shopping_cart, color: Colors.white),
+                IconButton(
+                  icon: const Icon(Icons.shopping_cart, color: Colors.white),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const CartPage()),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -52,7 +59,6 @@ class HomePage extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          // Banner
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 16),
             height: 140,
@@ -74,7 +80,6 @@ class HomePage extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          // Grid produk
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -104,32 +109,21 @@ class HomePage extends StatelessWidget {
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 4),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 4),
-                              decoration: BoxDecoration(
-                                color: kOrange,
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Text(
-                                p['harga']!,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        decoration: BoxDecoration(
+                          color: kOrange,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(
+                          p['harga']!,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
                           ),
-                          const SizedBox(width: 4),
-                          const Icon(
-                            Icons.add_shopping_cart,
-                            size: 20,
-                            color: kOrange,
-                          ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
