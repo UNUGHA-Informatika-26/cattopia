@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import 'cart.dart';
 import 'products.dart';
 import 'detail_page.dart';
 import 'cart_page.dart';
@@ -34,12 +35,25 @@ class ShopPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.shopping_cart, color: Colors.white),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const CartPage()),
+                ValueListenableBuilder<List<CartItem>>(
+                  valueListenable: cart,
+                  builder: (context, items, _) {
+                    final count =
+                        items.fold<int>(0, (sum, e) => sum + e.jumlah);
+                    return Badge(
+                      isLabelVisible: count > 0,
+                      label: Text('$count'),
+                      child: IconButton(
+                        icon: const Icon(Icons.shopping_cart, color: Colors.white),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const CartPage(),
+                            ),
+                          );
+                        },
+                      ),
                     );
                   },
                 ),

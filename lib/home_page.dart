@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'cart.dart';
 import 'cart_page.dart';
+import 'detail_page.dart';
+import 'products.dart';
 
 const kOrange = Color(0xFFF2A93B);
 
@@ -8,12 +11,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final products = [
-      {'nama': 'Royal Canin Kitten', 'harga': 'Rp 80.000'},
-      {'nama': 'Whiskas Skin & Coat', 'harga': 'Rp 120.000'},
-      {'nama': 'Cat Choize Salmon', 'harga': 'Rp 75.000'},
-      {'nama': 'Cat Choize Tuna', 'harga': 'Rp 75.000'},
-    ];
+    final recommended = products.take(4).toList();
 
     return SafeArea(
       child: ListView(
@@ -40,12 +38,25 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.shopping_cart, color: Colors.white),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const CartPage()),
+                ValueListenableBuilder<List<CartItem>>(
+                  valueListenable: cart,
+                  builder: (context, items, _) {
+                    final count =
+                        items.fold<int>(0, (sum, e) => sum + e.jumlah);
+                    return Badge(
+                      isLabelVisible: count > 0,
+                      label: Text('$count'),
+                      child: IconButton(
+                        icon: const Icon(Icons.shopping_cart, color: Colors.white),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const CartPage(),
+                            ),
+                          );
+                        },
+                      ),
                     );
                   },
                 ),
@@ -84,7 +95,7 @@ class HomePage extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            itemCount: products.length,
+            itemCount: recommended.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 12,
@@ -92,8 +103,15 @@ class HomePage extends StatelessWidget {
               childAspectRatio: 0.8,
             ),
             itemBuilder: (context, i) {
-              final p = products[i];
-              return Card(
+              final p = recommended[i];
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => DetailPage(product: p)),
+                  );
+                },
+                child: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Column(
@@ -105,7 +123,7 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        p['nama']!,
+                        p.nama,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 4),
@@ -117,7 +135,7 @@ class HomePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
-                          p['harga']!,
+                          'Rp ${p.harga}',
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.white,
@@ -128,6 +146,7 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
+              ),
               );
             },
           ),
