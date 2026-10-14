@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'shop_page.dart';
+import 'grooming_page.dart';
 
 void main() {
   runApp(const CattopiaApp());
@@ -36,7 +37,7 @@ class _MainPageState extends State<MainPage> {
   final List<Widget> _pages = const [
     HomePage(),
     ShopPage(),
-    Center(child: Text('Grooming')),
+    GroomingPage(),
     Center(child: Text('Pesanan')),
     Center(child: Text('Profil')),
   ];
