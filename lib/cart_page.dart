@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'home_page.dart';
 import 'cart.dart';
+import 'orders.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -81,9 +82,12 @@ class CartPage extends StatelessWidget {
                       child: FilledButton(
                         style: FilledButton.styleFrom(backgroundColor: kOrange),
                         onPressed: () {
+                          if (cart.value.isEmpty) return;
+                          addShopOrder(cart.value);
+                          cart.value = [];
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Pembayaran belum aktif'),
+                              content: Text('Pembayaran berhasil, pesanan dibuat'),
                             ),
                           );
                         },

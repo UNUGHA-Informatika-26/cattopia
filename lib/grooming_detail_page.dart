@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'home_page.dart';
+import 'orders.dart';
 
 class GroomingPackage {
   final String nama;
@@ -57,6 +58,7 @@ class _GroomingDetailPageState extends State<GroomingDetailPage> {
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: kOrange),
             onPressed: () {
+              addGroomingOrder(widget.paket, tanggal!, jam!);
               Navigator.pop(context);
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
